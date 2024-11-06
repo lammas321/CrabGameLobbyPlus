@@ -68,6 +68,8 @@ ServerKillMessages: The server kill messages to show when someone kills another 
 ServerWinMessages: The server win messages to show when someone wins, leave empty to not show win messages.
 
 ## Extra Info
+Changes you make to the lobby in game will not effect the loaded lobby config file, you have to edit the file itself if you want changes to save.
+
 Any options that take a list of options (game modes, maps, ect) are separated by commas.
 
 Game modes and maps are not case sensitive, and ignore spaces, so for "Tiny Town 2" the config will accept things like "tinyTOWN 2", "t i n y t o w n 2", "T  iN y   ToW  n2", ect.
