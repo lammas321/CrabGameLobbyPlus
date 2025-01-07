@@ -43,7 +43,7 @@ Type: The type of lobby. 2=Public, 1=Friends Only, 0=Code Only
 
 VoiceChatEnabled: If voice chat should be enabled in your lobby.
 
-MaxPlayers: The max number of players that can join your lobby, must be set to 2 or higher.
+MaxPlayers: The max number of players that can join your lobby, must be set between 2 and 250.
 
 EnabledGameModes: The names of the game modes you want to have enabled, or '*' to enable them all.
 
