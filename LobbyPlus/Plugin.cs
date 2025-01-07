@@ -159,9 +159,11 @@ namespace LobbyPlus
             LoadConfig(Config.Bind("Lobby+", "DefaultLobbyConfig", "Default", "The name of the lobby config to load by default.").Value);
 
             MaxPlayersSlider = Config.Bind($"Lobby+", "MaxPlayersSlider", 40,
-                "The highest the max players slider can go to, must be set to 40 or higher.");
+                "The highest the max players slider can go to, must be set between 40 and 250.");
             if (MaxPlayersSlider.Value < 40)
                 MaxPlayersSlider.Value = 40;
+            else if (MaxPlayersSlider.Value > 250)
+                MaxPlayersSlider.Value = 250;
 
 
             MessageOfTheDay.Init();
@@ -195,7 +197,7 @@ namespace LobbyPlus
                 voiceChatEnabled = config.Bind("Lobby Settings", "VoiceChatEnabled", true,
                     "If voice chat should be enabled in your lobby."),
                 maxPlayers = config.Bind("Lobby Settings", "MaxPlayers", 15,
-                    "The max number of players that can join your lobby, must be set to 2 or higher."),
+                    "The max number of players that can join your lobby, must be set between 2 and 250."),
                 enabledGameModes = config.Bind<string[]>("Lobby Settings", "EnabledGameModes", [.. GameModesAndMapsDefault],
                     "The names of the game modes you want to have enabled, or '*' to enable them all."),
                 enabledMaps = config.Bind<string[]>("Lobby Settings", "EnabledMaps", [.. GameModesAndMapsDefault],
@@ -243,6 +245,8 @@ namespace LobbyPlus
                 LobbyConfig.type.Value = 2;
             if (LobbyConfig.maxPlayers.Value < 2)
                 LobbyConfig.maxPlayers.Value = 2;
+            else if (LobbyConfig.maxPlayers.Value > 250)
+                LobbyConfig.maxPlayers.Value = 250;
             if (LobbyConfig.enabledGameModes.Value.Length == 0)
                 LobbyConfig.enabledGameModes.Value = [.. GameModesAndMapsDefault];
             if (LobbyConfig.enabledMaps.Value.Length == 0)

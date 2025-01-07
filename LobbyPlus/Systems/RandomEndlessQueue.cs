@@ -16,7 +16,10 @@ namespace LobbyPlus.Systems
             if (items.Length == 0)
                 return default;
 
-            bool isNewQueue = queue.Count == 0 && items.Length > 1;
+            if (items.Length == 1)
+                return items[0];
+
+            bool isNewQueue = queue.Count == 0;
             if (isNewQueue)
                 queue = [.. items];
 

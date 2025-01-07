@@ -115,6 +115,7 @@ namespace LobbyPlus.Systems
             lobbySettings.maxPlayers.slider.maxValue = StaticConstants.field_Public_Static_Int32_0;
 
             lobbySettings.serverNameField.text = LobbyPlus.LobbyConfig.motds.Value[0];
+            lobbySettings.UpdateServerName();
 
             lobbySettings.lobbyType.SetSettings(Enum.GetNames(typeof(LobbyManagerGameVisibility)), LobbyPlus.LobbyConfig.type.Value);
             lobbySettings.proximityChat.SetSetting(LobbyPlus.LobbyConfig.voiceChatEnabled.Value);
