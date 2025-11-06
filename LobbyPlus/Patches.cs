@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using static LobbyPlus.LobbyPlus;
@@ -12,6 +13,29 @@ namespace LobbyPlus
 {
     internal static class Patches
     {
+        /*[HarmonyPatch(typeof(GameUiChatBox), nameof(GameUiChatBox.SendMessage))]
+        [HarmonyPrefix]
+        internal static bool PreGameUiChatBoxSendMessage(string param_1)
+        {
+            string[] args = param_1.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+            if (args[0] == ".mic")
+            {
+                string mic = MonoBehaviourPublicObdicoObInGaObdiUnique.Instance.comms.prop_String_1; // Dissonance
+                GameUiChatBox.Instance.ForceMessage($"Current mic: {mic}");
+
+                string newMic = Microphone.devices[(Microphone.devices.IndexOf(mic) + 1) % Microphone.devices.Count];
+                GameUiChatBox.Instance.ForceMessage($"New mic: {newMic}");
+                MonoBehaviourPublicObdicoObInGaObdiUnique.Instance.comms.prop_String_1 = newMic; // Dissonance
+                return false;
+            }
+
+            return true;
+        }*/
+
+
+
+
         // Init some systems
         [HarmonyPatch(typeof(LobbyManager), nameof(LobbyManager.StartLobby))]
         [HarmonyPatch(typeof(LobbyManager), nameof(LobbyManager.StartPracticeLobby))]
@@ -227,11 +251,11 @@ namespace LobbyPlus
         [HarmonyPostfix]
         internal static void PostWinManagerStart(WinManager __instance)
         {
-            if (!SteamManager.Instance.IsLobbyOwner())
-                return;
-
-            __instance.CancelInvoke(nameof(WinManager.Continue));
-            __instance.Invoke(nameof(WinManager.Continue), LobbyPlus.LobbyConfig.winScreenTime.Value);
+            if (SteamManager.Instance.IsLobbyOwner())
+            {
+                __instance.CancelInvoke(nameof(WinManager.Continue));
+                __instance.Invoke(nameof(WinManager.Continue), LobbyPlus.LobbyConfig.winScreenTime.Value);
+            }
         }
 
 

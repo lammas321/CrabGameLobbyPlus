@@ -8,6 +8,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using UnityEngine;
 
 /* TODO
 
@@ -41,7 +42,7 @@ namespace LobbyPlus
         public static LobbyConfig LobbyConfig { get; internal set; }
         public static ConfigEntry<int> MaxPlayersSlider { get; internal set; }
 
-        
+
         internal readonly string[] MotdsDefault = [
             "Crab Gaming",
             "This lobby's name keeps changing!!!",
@@ -264,7 +265,7 @@ namespace LobbyPlus
             if (LobbyConfig.autoStartMinPlayers.Value < 0)
                 LobbyConfig.autoStartMinPlayers.Value = 0;
 
-            LobbyConfig.winnerItemSpamItems.Value = [.. LobbyConfig.winnerItemSpamItems.Value.Where(itemId => itemId >= 0 && itemId <= 13)];
+            LobbyConfig.winnerItemSpamItems.Value = [.. LobbyConfig.winnerItemSpamItems.Value.Where(itemId => itemId >= 0)];
             if (LobbyConfig.freezePhaseTime.Value < 5)
                 LobbyConfig.freezePhaseTime.Value = 5;
             if (LobbyConfig.roundOverPhaseTime.Value < 3)
