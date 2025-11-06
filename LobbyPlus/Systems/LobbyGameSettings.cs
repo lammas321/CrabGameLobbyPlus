@@ -74,13 +74,16 @@ namespace LobbyPlus.Systems
         {
             GameModeManager.Instance.allPlayableGameModes.Clear();
             if (LobbyPlus.LobbyConfig.enabledGameModes.Value[0] == "*")
+            {
                 foreach (GameModeData gameModeData in GameModeManager.Instance.allGameModes)
-                    GameModeManager.Instance.allPlayableGameModes.Add(gameModeData);
+                    if (!gameModeData.skipAsString && gameModeData.isPlayable)
+                        GameModeManager.Instance.allPlayableGameModes.Add(gameModeData);
+            }
             else
             {
                 IEnumerable<string> gameModes = LobbyPlus.LobbyConfig.enabledGameModes.Value.Select(gameMode => gameMode.Replace(" ", "").ToLower());
                 foreach (GameModeData gameModeData in GameModeManager.Instance.allGameModes)
-                    if (gameModes.Contains(gameModeData.modeName.Replace(" ", "").ToLower()))
+                    if (!gameModeData.skipAsString && gameModeData.isPlayable && gameModes.Contains(gameModeData.modeName.Replace(" ", "").ToLower()))
                         GameModeManager.Instance.allPlayableGameModes.Add(gameModeData);
             }
         }
